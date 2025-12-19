@@ -57,6 +57,9 @@ export default function PortfolioPreview() {
       ))
     );
 
+  const renderSkills = () =>
+    <SkillsList />;
+
   return (
     <div style={baseStyle}>
       {template === "default" && (
@@ -64,15 +67,19 @@ export default function PortfolioPreview() {
           <div style={defaultStyle}>
             <ProfileHeader />
           </div>
+
           <div style={defaultStyle}>
-            <h3>Skills</h3>
-            <SkillsList />
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Skills</h3>
+            {renderSkills()}
           </div>
+
           <div style={defaultStyle}>
-            <h3>Projects</h3>
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
             {renderProjects()}
           </div>
+
           <div style={defaultStyle}>
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Social Links</h3>
             <SocialLinks />
           </div>
         </>
@@ -83,8 +90,9 @@ export default function PortfolioPreview() {
           <div style={minimalStyle}>
             <ProfileHeader />
           </div>
+
           <div style={minimalStyle}>
-            <h3>Projects</h3>
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
             {renderProjects()}
           </div>
         </>
@@ -95,15 +103,19 @@ export default function PortfolioPreview() {
           <div style={modernStyle}>
             <ProfileHeader />
           </div>
+
           <div style={modernStyle}>
-            <h3>Skills</h3>
-            <SkillsList />
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Skills</h3>
+            {renderSkills()}
           </div>
+
           <div style={modernStyle}>
-            <h3>Projects</h3>
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
             {renderProjects()}
           </div>
+
           <div style={modernStyle}>
+            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Social Links</h3>
             <SocialLinks />
           </div>
         </>

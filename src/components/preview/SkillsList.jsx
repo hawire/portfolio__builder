@@ -7,7 +7,7 @@ export default function SkillsList() {
 
   return (
     <div style={{ marginBottom: "20px" }}>
-      <h3>Skills</h3>
+
       <ul style={{ display: "flex", flexWrap: "wrap", gap: "10px", listStyle: "none", padding: 0 }}>
         {skills.map((skill, index) => (
           <li
