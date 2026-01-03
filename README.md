@@ -39,31 +39,7 @@ This project demonstrates skills in React components, state management, conditio
 
 ---
 
-## **Project Structure**
-src/
-├─ pages/
-│ ├─ Home.jsx
-│ └─ Builder.jsx
-│
-├─ components/
-│ ├─ form/
-│ │ ├─ UserInfoForm.jsx
-│ │ ├─ SkillsForm.jsx
-│ │ ├─ ProjectsForm.jsx
-│ │ └─ SocialLinksForm.jsx
-│ │
-│ ├─ preview/
-│ │ ├─ PortfolioPreview.jsx
-│ │ ├─ ProfileHeader.jsx
-│ │ ├─ SkillsList.jsx
-│ │ ├─ ProjectCard.jsx
-│ │ └─ SocialLinks.jsx
-│
-├─ store/
-│ └─ portfolioStore.js
-│
-├─ App.jsx
-└─ main.jsx
+
 
 Usage
 
@@ -78,11 +54,14 @@ Optional: Reset Portfolio button clears all saved data.
 Optional: Export Portfolio button saves the portfolio as an HTML file.
 
 Screenshots
-<img width="2191" height="1240" alt="Screenshot 2025-12-19 043733" src="https://github.com/user-attachments/assets/42a1f8bb-79d0-4750-9c59-32439504e23c" />
+<img width="2256" height="1504" alt="Screenshot (146)" src="https://github.com/user-attachments/assets/8d6521bf-251e-4843-98e6-df7e6a92cefb" />
 
-<img width="2191" height="1300" alt="Screenshot 2025-12-19 043615" src="https://github.com/user-attachments/assets/d1dba442-1132-427f-9c6c-1e10cc0c7472" />
 
-<img width="2212" height="1297" alt="Screenshot 2025-12-19 043634" src="https://github.com/user-attachments/assets/5c48d88e-d49b-4ad0-b7a1-d1984160a8aa" />
+<img width="2256" height="1504" alt="Screenshot (147)" src="https://github.com/user-attachments/assets/d2e24e58-da72-4e8d-80c4-3cdd5ab95c4d" />
+
+
+<img width="2256" height="1504" alt="Screenshot (148)" src="https://github.com/user-attachments/assets/83f46693-ad9a-4772-89b8-4ae34ba99771" />
+
 
 
 Contributing
