@@ -3,123 +3,120 @@ import SkillsList from "./SkillsList";
 import ProjectCard from "./ProjectCard";
 import SocialLinks from "./SocialLinks";
 import { usePortfolioStore } from "../../store/portfolioStore";
+import { IconSparkles, IconBriefcase, IconCode, IconShare } from "../common/Icons";
 
 export default function PortfolioPreview() {
-  const projects = usePortfolioStore((state) => state.projects);
-  const template = usePortfolioStore((state) => state.template);
-  const theme = usePortfolioStore((state) => state.theme);
+  const projects = usePortfolioStore((state) => state.projects) || [];
+  const template = usePortfolioStore((state) => state.template) || "default";
+  const accentColor = usePortfolioStore((state) => state.accentColor) || "var(--brand-primary)";
 
-  const baseStyle = {
-    padding: "30px",
-    borderRadius: "12px",
-    minHeight: "80vh",
-    fontFamily: "'Roboto', sans-serif",
-    transition: "all 0.3s ease",
-    color: theme === "light" ? "#222" : "#fff",
-    backgroundColor: theme === "light" ? "#f9f9f9" : "#121212",
+  const isMinimal = template === "minimal";
+  const isModern = template === "modern";
+
+  // Section card wrapper style
+  const sectionCardStyle = {
+    padding: isMinimal ? "20px 0" : "24px",
+    borderRadius: isMinimal ? "0" : "var(--radius-lg)",
+    backgroundColor: isMinimal ? "transparent" : "var(--bg-surface)",
+    border: isMinimal ? "none" : isModern ? "1px solid rgba(229, 70, 131, 0.2)" : "1px solid var(--border-subtle)",
+    borderBottom: isMinimal ? "1px solid var(--border-medium)" : undefined,
+    marginBottom: "24px",
+    boxShadow: isMinimal ? "none" : isModern ? "0 8px 30px -10px rgba(229, 70, 131, 0.15)" : "var(--shadow-sm)",
   };
 
-  const sectionStyle = {
-    padding: "15px",
-    borderRadius: "10px",
-    marginBottom: "25px",
-    transition: "all 0.3s ease",
-  };
-
-  const defaultStyle = {
-    ...sectionStyle,
-    backgroundColor: theme === "light" ? "#fff" : "#1e1e1e",
-    boxShadow:
-      theme === "light"
-        ? "0 2px 10px rgba(0,0,0,0.05)"
-        : "0 2px 10px rgba(0,0,0,0.5)",
-  };
-
-  const modernStyle = {
-    ...sectionStyle,
-    backgroundColor: theme === "light" ? "#e0f7ff" : "#1b1b2f",
-    boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
-    border: "1px solid #0070f3",
-  };
-
-  const minimalStyle = {
-    ...sectionStyle,
-    backgroundColor: "transparent",
-    boxShadow: "none",
-  };
-
-  const renderProjects = () =>
-    projects.length === 0 ? (
-      <p>No projects added yet.</p>
-    ) : (
-      projects.map((project, index) => (
-        <ProjectCard key={index} project={project} template={template} />
-      ))
-    );
-
-  const renderSkills = () =>
-    <SkillsList />;
+  const renderSectionHeader = (title, icon) => (
+    <h3
+      style={{
+        fontSize: "1.1rem",
+        fontWeight: "700",
+        color: "var(--text-primary)",
+        marginBottom: "16px",
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        letterSpacing: "-0.02em",
+      }}
+    >
+      <span
+        style={{
+          width: "4px",
+          height: "16px",
+          backgroundColor: accentColor,
+          borderRadius: "2px",
+          display: "inline-block",
+        }}
+      />
+      {icon}
+      <span>{title}</span>
+    </h3>
+  );
 
   return (
-    <div style={baseStyle}>
-      {template === "default" && (
-        <>
-          <div style={defaultStyle}>
-            <ProfileHeader />
-          </div>
+    <div
+      style={{
+        fontFamily: isMinimal ? "var(--font-mono), var(--font-sans)" : "var(--font-sans)",
+        transition: "all var(--transition-normal)",
+      }}
+    >
+      {/* Profile Header Section */}
+      <div style={sectionCardStyle}>
+        <ProfileHeader />
+      </div>
 
-          <div style={defaultStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Skills</h3>
-            {renderSkills()}
-          </div>
+      {/* Skills Section (Rendered in ALL templates!) */}
+      <div style={sectionCardStyle}>
+        {renderSectionHeader("Skills & Technical Expertise", <IconCode size={16} style={{ color: accentColor }} />)}
+        <SkillsList />
+      </div>
 
-          <div style={defaultStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
-            {renderProjects()}
+      {/* Projects Section */}
+      <div style={sectionCardStyle}>
+        {renderSectionHeader("Featured Projects", <IconBriefcase size={16} style={{ color: accentColor }} />)}
+        {projects.length === 0 ? (
+          <p style={{ fontSize: "0.85rem", color: "var(--text-muted)", margin: 0, fontStyle: "italic" }}>
+            No projects added yet. Click &quot;Add Project&quot; in the editor to showcase your work.
+          </p>
+        ) : (
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: isMinimal ? "1fr" : "repeat(auto-fill, minmax(260px, 1fr))",
+              gap: "16px",
+            }}
+          >
+            {projects.map((project, index) => (
+              <ProjectCard
+                key={project.id || index}
+                project={project}
+                template={template}
+              />
+            ))}
           </div>
+        )}
+      </div>
 
-          <div style={defaultStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Social Links</h3>
-            <SocialLinks />
-          </div>
-        </>
-      )}
+      {/* Social Links Section (Rendered in ALL templates!) */}
+      <div style={sectionCardStyle}>
+        {renderSectionHeader("Connect & Profiles", <IconShare size={16} style={{ color: accentColor }} />)}
+        <SocialLinks />
+      </div>
 
-      {template === "minimal" && (
-        <>
-          <div style={minimalStyle}>
-            <ProfileHeader />
-          </div>
-
-          <div style={minimalStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
-            {renderProjects()}
-          </div>
-        </>
-      )}
-
-      {template === "modern" && (
-        <>
-          <div style={modernStyle}>
-            <ProfileHeader />
-          </div>
-
-          <div style={modernStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Skills</h3>
-            {renderSkills()}
-          </div>
-
-          <div style={modernStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Projects</h3>
-            {renderProjects()}
-          </div>
-
-          <div style={modernStyle}>
-            <h3 style={{ fontFamily: "'Montserrat', sans-serif", marginBottom: "10px" }}>Social Links</h3>
-            <SocialLinks />
-          </div>
-        </>
-      )}
+      {/* Portfolio Footer */}
+      <footer
+        style={{
+          textAlign: "center",
+          padding: "20px 0 10px 0",
+          color: "var(--text-muted)",
+          fontSize: "0.78rem",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "6px",
+        }}
+      >
+        <IconSparkles size={13} style={{ color: accentColor }} />
+        <span>Crafted with PortfolioCraft</span>
+      </footer>
     </div>
   );
 }
